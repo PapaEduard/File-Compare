@@ -8,6 +8,7 @@ def compare_files(file1_path, file2_path, ignore_title=False, ignore_date=False,
         lines2 = f2.readlines()
 
     differences = []
+    diff_line_count = 0
 
     # Compare title (line 0)
     if not ignore_title:
@@ -35,6 +36,7 @@ def compare_files(file1_path, file2_path, ignore_title=False, ignore_date=False,
                 line1 = text1[i].strip() if i < len(text1) else "<missing>"
                 line2 = text2[i].strip() if i < len(text2) else "<missing>"
                 if line1 != line2:
+                    diff_line_count += 1
                     print(f"Line {i+3}:")
                     print(f"  File1: {line1}")
                     print(f"  File2: {line2}")
@@ -46,6 +48,12 @@ def compare_files(file1_path, file2_path, ignore_title=False, ignore_date=False,
         print("\nFiles are different:")
         for diff in differences:
             print(f"- {diff}")
+        if show_line_diff:
+            print(f"\nTotal number of different lines: {diff_line_count}")
+
+# Example usage:
+compare_files('file1.txt', 'file2.txt', ignore_title=False, ignore_date=False, show_line_diff=True)
+
 
 
 # Example usage:
